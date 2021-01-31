@@ -7,10 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Comment.delete_all
+User.delete_all
 Post.delete_all
 
 NUM_POSTS = 50
+NUM_USERS=10
 
+PASSWORD='supersecret'
+super_user= User.create(
+    name: 'Jon Snow',
+    email: 'js@winterfell.gov',
+    password: PASSWORD
+)
 
 NUM_POSTS.times do
     created_at = Faker::Date.backward(days: 365*5)

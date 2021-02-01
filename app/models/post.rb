@@ -9,4 +9,7 @@ class Post < ApplicationRecord
 
     #Association with comments => 1post, many comments
     has_many :comments, dependent: :destroy
+
+
+    belongs_to :user, optional: true
 end

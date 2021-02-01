@@ -1,11 +1,17 @@
 <div class="container">
     <h1><%= @post.title%></h1>
     <p><%= @post.body%></p>
-    <p>Posted <%= time_ago_in_words(@post.created_at)%> ago</p>
+    <small>Posted by <%= @post.user&.name%>
+    <small><%= time_ago_in_words(@post.created_at)%> ago</small></small>
 
+    
     <div>
-    <%= link_to("Edit", edit_post_path(@post.id), class:"btn btn-outline-primary")%>
-    <%= link_to("Delete", post_path(@post.id), method: :delete, class:"btn btn-outline-primary")%>
+    <% if can? :crud, @post%>
+        <%= link_to("Edit", edit_post_path(@post.id), class:"btn btn-outline-primary")%>
+    <%end%>
+    <% if can? :crud, @post%>
+        <%= link_to("Delete", post_path(@post.id), method: :delete, class:"btn btn-outline-primary")%>
+    <%end%>
     </div>
 
     <div class="mt-4">
@@ -24,8 +30,12 @@
         <% @comments.each do |comment|%>
      
             <p class="d-flex flex-column mt-4"><%= comment.body%>
-            <small>Commented <%= time_ago_in_words(comment.created_at)%> ago • &nbsp;
-            <%= link_to("Delete", post_comment_path(@post.id, comment.id), method: :delete)%></small></span>
+            <small>Commented by: <%= comment.user&.name || "Deleted"%>
+            <small><%= time_ago_in_words(comment.created_at)%> ago </small>
+            <% if (can? :crud, comment) || (can? :crud, @post)%>
+               • &nbsp; <%= link_to("Delete", post_comment_path(@post.id, comment.id), method: :delete)%>
+            <%end%>
+            </small>
              </p>
     <%end%>
 </div>

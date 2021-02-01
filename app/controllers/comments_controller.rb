@@ -1,19 +1,27 @@
 class CommentsController < ApplicationController
     before_action :find_post
+    before_action :authenticate_user!
 
     def create
         @comment =Comment.new comment_params
         @comment.post=@post
-        @comment.save
-        puts "**************************"
-        puts "#{@comment.post}"
-        redirect_to post_path(@post), notice: "Comment created"          
+        @comment.user = current_user
+        if @comment.save
+            redirect_to post_path(@post), notice: "Comment created"   
+        else
+            @comments = @post.comments.order(created_at: :DESC)
+            render "/posts/show" 
+        end      
     end
 
     def destroy
         @comment = Comment.find params[:id]
-        @comment.destroy
-        redirect_to post_path(@post), notice: "Comment deleted"  
+        if (can? :crud, @comment) || (can? :crud, @post)
+            @comment.destroy
+            redirect_to post_path(@post), notice: "Comment deleted"  
+        else
+            redirect_to post_path(@post), alert: "Not authorized to delete comment"
+        end
     end
 
 

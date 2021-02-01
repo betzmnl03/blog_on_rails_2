@@ -43,9 +43,9 @@ class UsersController < ApplicationController
                 @user.update password_params
                 redirect_to root_path, notice: "Password changed"
             elsif ((@current_password == @new_password))
-                flash[:alert] ="New password should be different"
+                flash[:alert]="New password should be different"
             elsif((@current_password != @new_password) &&(@new_password != @new_password_confirmation))
-                flash[:alert] = "New passwords do not match"
+                flash[:alert] ="New passwords do not match"
             end
         end
         

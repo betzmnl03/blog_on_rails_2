@@ -1,28 +1,30 @@
-<h1>Sign Up Form</h1>
-<%= form_with model: @user, local:true do |f|%>
+
+<h1>Sign Up</h1>
+<div class="container m-4 p-4 border col-sm-6">
+<%= form_with model: @user, :class=>"form-group", local:true do |f|%>
 <% if @user.errors.any? %>
 <p>
     <%= @user.errors.full_messages.join(', ')%>
 </p>
 <% end %>
-
-<div>
     <%= f.label :name  %> 
-    <%= f.text_field :name  %> 
+<div class="input-group mb-2">
+    <%= f.text_field :name, :class=>'form-control'%> 
 </div>
-
-<div>
     <%= f.label :email  %> 
-    <%= f.email_field :email  %> 
+<div class="input-group mb-2 ">
+    <%= f.email_field :email, :class=>'form-control'%> 
 </div>
-<div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
+    <%= f.label :password %>    
+<div class="input-group mb-2">
+    
+    <%= f.password_field :password ,:class=>'form-control'%>
 </div>
-<div>
     <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
+<div class="input-group mb-2">   
+    <%= f.password_field :password_confirmation, :class=>'form-control'%>
 </div>
 
-<%= f.submit "Sign up"%>
+<%= f.submit "Sign up", :class => 'btn btn-outline-primary mt-4'%>
 <% end %>
+</div>

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
     before_action :find_post
-    before_action :authenticate_user!
+    before_action :authenticated_user!
 
     def create
         @comment =Comment.new comment_params

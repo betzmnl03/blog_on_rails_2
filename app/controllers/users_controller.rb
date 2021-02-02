@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         @new_password = params[:password]
         @new_password_confirmation = params[:password_confirmation]
         #checking whether password_digest in db is same as current_password
-        if @user && @user.authenticated(@current_password)
+        if @user && @user.authenticate(@current_password)
             if((@current_password != @new_password)&& (@new_password == @new_password_confirmation))
                 password_digest = params.permit(:new_password)
                 @user.update password_params

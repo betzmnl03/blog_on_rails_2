@@ -3,8 +3,6 @@
     <p><%= @post.body%></p>
     <small>Posted by <%= @post.user&.name%>
     <small><%= time_ago_in_words(@post.created_at)%> ago</small></small>
-
-    
     <div>
     <% if can? :crud, @post%>
         <%= link_to("Edit", edit_post_path(@post.id), class:"btn btn-outline-primary")%>
